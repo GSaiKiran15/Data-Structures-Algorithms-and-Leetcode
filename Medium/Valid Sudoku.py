@@ -23,4 +23,5 @@ for r in range(9):
         rows[r].add(board[r][c])
         cols[c].add(board[r][c])
         boxes[(r // 3, c //3)].add(board[r][c])
+print(rows, cols, boxes)
 print(True)
