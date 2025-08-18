@@ -26,15 +26,19 @@ def print_linked_list(head):
     print(arr)
 
 # ====== Example Function (Replace with your LeetCode solution) ======
-def reverseList(head):
+def reverseList(head, left, right):
+    dummy = ListNode(0, head)
+    leftPrev, cur = dummy, head
+    for i in range(left - 1):
+        leftPrev, cur = cur, cur.next
     prev = None
-    while head:
-        next_node = head.next
-        head.next = prev
-        prev = head
-        head = next_node
-    return prev
-        
+    for i in range(right - left + 1):
+        tmpNext = cur.next
+        cur.next = prev
+        prev, cur = cur, tmpNext
+    leftPrev.next.next = cur
+    leftPrev.next = prev
+    return dummy.next
         
 
 # ====== Test Here ======
@@ -46,7 +50,7 @@ if __name__ == "__main__":
     print_linked_list(test_list)
 
     # Run your function
-    result = reverseList(test_list)
+    result = reverseList(test_list, 2, 4)
 
     print("After running function:")
     print_linked_list(result)
