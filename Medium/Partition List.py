@@ -30,23 +30,20 @@ def print_linked_list(head):
 
 # ====== Example Function (Replace with your LeetCode solution) ======
 def reverseList(head, x):
-    smaller = []
-    greater = []
-    cur = head
-    while cur:
-        if cur.val < x:
-            smaller.append(cur.val)
+    left = ListNode(0)
+    right = ListNode(0)
+    l_tail, r_tail = left, right
+    while head:
+        if head.val < x:
+            l_tail.next = head
+            l_tail = l_tail.next
         else:
-            greater.append(cur.val)
-        cur = cur.next
-    dummy = ListNode(0)
-    a = dummy
-    cur = head
-    smaller.extend(greater)
-    for i in smaller:
-        a.next = ListNode(i)
-        a = a.next
-    return dummy.next    
+            r_tail.next = head
+            r_tail = r_tail.next
+        head = head.next
+    l_tail.next = right.next
+    r_tail.next = None
+    return left.next
         
         
 
