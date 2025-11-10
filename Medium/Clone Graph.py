@@ -53,7 +53,7 @@ class Solution:
                 copy.neighbors.append(dfs(neighbor))
             return copy
         
-        return dfs(node)
+        return dfs(node) if node else None
 
 
 # ---------- Debug / Test Section ----------
