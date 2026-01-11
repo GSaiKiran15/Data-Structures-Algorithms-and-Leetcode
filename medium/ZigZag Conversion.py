@@ -1,14 +1,10 @@
 s = "PAYPALISHIRING"
 numRows = 4
 res = ""
-for i in range(numRows):
-    res += s[i]
-    val = i
-    for j in range(i, len(s)):
-        if j == val + ((2 * numRows) - 2):
-            print(i, s[i], j, s[j], ((2 * numRows) - 2))
-            res += s[j]
-            val = j
-        elif j == ((2 * numRows) - (3 * val)):
-            print(j, s[j], ((2 * numRows) - (3 * val)))
+for r in range(numRows):
+    increment = 2 * (numRows - 1)
+    for i in range(r, len(s) - 1, increment):
+        res += s[i]
+        if (r > 0 and r < numRows - 1 and i + increment - 2 * r < len(s)):
+            res += s[i + increment - 2 * r]
 print(res)
