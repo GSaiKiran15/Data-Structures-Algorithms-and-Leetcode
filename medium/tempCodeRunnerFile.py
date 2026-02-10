@@ -1,3 +1,2 @@
 
-    for c in range(cols):
-        matrix[r][c] = matrix[r][c][1]
+            dummy.next = ListNode(digit)
