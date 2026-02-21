@@ -21,8 +21,6 @@ class Solution:
             return (dfs(node.left, cur_sum) or dfs(node.right, cur_sum))
         return dfs(root, 0)        
             
-
-
 # Helper function to build tree from level-order traversal list
 def build_tree(values):
     if not values:
