@@ -1,68 +1,65 @@
 from typing import Optional
 
-# Definition for a binary tree node.
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
-        
+# Definition for singly-linked list.
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+    
     def __repr__(self):
-        return f"TreeNode({self.val})"
+        return f"ListNode({self.val})"
 
 class Solution:
-    def isSymmetric(self, root: Optional[TreeNode]) -> bool:
-        if not root:
-            return True
-        def dfs(leftChild, rightChild):
-            if not leftChild and not rightChild:
-                return True
-            if not leftChild or not rightChild:
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        rabbit, tortoise = head, head
+        while rabbit and tortoise:
+            if rabbit.next and rabbit.next.next:
+                rabbit = rabbit.next.next
+                tortoise = tortoise.next
+            else:
                 return False
-            return (leftChild.val == rightChild.val and dfs(leftChild.left, rightChild.right) and dfs(leftChild.right, rightChild.left))
-        return dfs(root.left, root.right)
+            if rabbit == tortoise:
+                return True
+        return False
 
-# Helper function to build tree from level-order traversal list
-def build_tree(values):
+# Helper function to create a linked list with a cycle
+def create_linked_list_with_cycle(values, pos):
     if not values:
         return None
-    root = TreeNode(values[0])
-    queue = [root]
-    i = 1
-    while i < len(values):
-        current = queue.pop(0)
+    
+    head = ListNode(values[0])
+    current = head
+    nodes = [head]
+    
+    for i in range(1, len(values)):
+        new_node = ListNode(values[i])
+        current.next = new_node
+        current = new_node
+        nodes.append(new_node)
+    
+    # Create the cycle
+    if pos != -1:
+        current.next = nodes[pos]
         
-        # Left child
-        if i < len(values) and values[i] is not None:
-            current.left = TreeNode(values[i])
-            queue.append(current.left)
-        i += 1
-        
-        # Right child
-        if i < len(values) and values[i] is not None:
-            current.right = TreeNode(values[i])
-            queue.append(current.right)
-        i += 1
-        
-    return root
+    return head
 
 if __name__ == "__main__":
     solution = Solution()
     
-    # Test Case 1: Symmetric Tree
-    # Input: root = [1,2,2,3,4,4,3]
+    # Test Case 1: Cycle exists
+    # Input: head = [3,2,0,-4], pos = 1
     # Expected Output: True
-    tree1 = build_tree([1, 2, 2, 3, 4, 4, 3])
-    print(f"Test case 1 (Expected: True): {solution.isSymmetric(tree1)}")
+    list1 = create_linked_list_with_cycle([3, 2, 0, -4], 1)
+    print(f"Test case 1 (Expected: True): {solution.hasCycle(list1)}")
     
-    # Test Case 2: Asymmetric Tree
-    # Input: root = [1,2,2,null,3,null,3]
-    # Expected Output: False
-    tree2 = build_tree([1, 2, 2, None, 3, None, 3])
-    print(f"Test case 2 (Expected: False): {solution.isSymmetric(tree2)}")
-
-    # Test Case 3: Empty Tree
-    # Input: root = []
+    # Test Case 2: Cycle exists at head
+    # Input: head = [1,2], pos = 0
     # Expected Output: True
-    tree3 = build_tree([])
-    print(f"Test case 3 (Expected: True): {solution.isSymmetric(tree3)}")
+    list2 = create_linked_list_with_cycle([1, 2], 0)
+    print(f"Test case 2 (Expected: True): {solution.hasCycle(list2)}")
+
+    # Test Case 3: No cycle
+    # Input: head = [1], pos = -1
+    # Expected Output: False
+    list3 = create_linked_list_with_cycle([1], -1)
+    print(f"Test case 3 (Expected: False): {solution.hasCycle(list3)}")
