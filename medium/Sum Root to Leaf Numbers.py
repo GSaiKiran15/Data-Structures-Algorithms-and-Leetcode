@@ -19,8 +19,7 @@ class Solution:
             if not node.left and not node.right:
                 return num
             return dfs(node.left, num) + dfs(node.right, num)
-        return dfs(root, 0)
-            
+        return dfs(root, 0)            
 
 # Helper function to build tree from level-order traversal list
 def build_tree(values):
