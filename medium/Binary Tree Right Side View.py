@@ -39,13 +39,6 @@ class Solution:
 
 # Test cases
 if __name__ == "__main__":
-    # Example 1: [1,2,3,null,5,null,4]
-    #       1
-    #      / \
-    #     2   3
-    #      \   \
-    #       5   4
-    # Output: [1,3,4]
     
     root1 = TreeNode(1)
     root1.left = TreeNode(2)
@@ -55,12 +48,6 @@ if __name__ == "__main__":
     
     sol = Solution()
     print("Example 1:", sol.rightSideView(root1))  # Expected: [1, 3, 4]
-    
-    # Example 2: [1,null,3]
-    #       1
-    #        \
-    #         3
-    # Output: [1,3]
     
     root2 = TreeNode(1)
     root2.right = TreeNode(3)
